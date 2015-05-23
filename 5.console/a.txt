@@ -1,0 +1,4 @@
+this is log
+this is error
+this is log
+this is error
