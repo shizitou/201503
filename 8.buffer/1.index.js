@@ -80,9 +80,6 @@ function concat(arr,length){
     var totalBuf = new Buffer(length);
     var index =0;
     for(var i=0;i<arr.length;i++){
-       /* for(var j=0;j<arr[i].length;j++){
-            totalBuf[index++] = arr[i][j];
-        }*/
         srcBuf.copy(tarBuf,3,0,3);
     }
     return totalBuf;
