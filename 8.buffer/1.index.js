@@ -78,13 +78,21 @@ console.log(buf2.toString());
 //1.先存储后合并
 function concat(arr,length){
     var totalBuf = new Buffer(length);
-    var index =0;
-    for(var i=0;i<arr.length;i++){
-        srcBuf.copy(tarBuf,3,0,3);
+    if(arr.length==0)
+        return totalBuf;
+    if(arr.length==1){
+        return arr[0];
+    }else{
+        var index =0;
+        for(var i=0;i<arr.length;i++){
+            arr[i].copy(totalBuf,index,0,arr[i].length);
+            index+=arr[i].length;
+        }
     }
     return totalBuf;
 }
-console.log(concat([buf1,buf2],
+
+console.log('concat'+concat([buf1,buf2],
     buf1.length+buf2.length).toString());
 //使用StringDecoder
 var StringDecoder = require('string_decoder')
@@ -127,3 +135,12 @@ tarBuf[1] = 2;
 tarBuf[2] = 3;
 srcBuf.copy(tarBuf,3,0,3);
 console.log(tarBuf);//123456
+
+
+console.log(srcBuf instanceof Buffer);
+console.log(Buffer.isBuffer(srcBuf));
+
+console.log(Buffer.byteLength('珠峰培训','ascii'));
+
+console.log(Buffer.isEncoding('utf8'));
+console.log(Buffer.isEncoding('GBK'));
