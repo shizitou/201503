@@ -76,4 +76,8 @@ fs.stat(p,function(err,stat){
     })
 });
 //删除不为空的文件夹
-fs.rmdir('test');
+fs.rmdir('zf');
+//1. 从最底级的文件夹开始删除。
+//2. fs.unlinkSync(src);删除文件
+//3. fs.rmdir('zf.txt');删除空的文件夹的
+//4. readdir 读取文件夹下的所有文件
