@@ -42,12 +42,24 @@ fs.open('./msg.txt','r',function(err,fd){
 });
 /**
  * 可以读取多次
- */
+ */http://192.168.0.109:8360
+
 fs.open('./msg.txt','r',function(err,fd){
-    var buff = new Buffer(6);
-    fs.read(fd,buff,0,6,3,function(err,bytesRead,buffer){
-        fs.read(fd,buff,0,6,null,function(err,bytesRead,buffer){
-            console.log(buff.toString());
-        });
+    var buff=new Buffer(12);
+    fs.read(fd,buff,0,6,0,function(err,bytesRead,buffer){
+        fs.read(fd,buff,6,6,6,function(err,bytesRead,buffer){
+            console.log(buff.toString());});
     });
+});
+
+
+fs.open('./msg.txt','r',function(err,fd){
+    if(err)
+        console.error(err);
+    else{
+        var buff = new Buffer(255);
+        var bytesRead = fs.readSync(fd,buff,0,6,3);
+        console.log("bytesRead "+bytesRead);
+        console.log(buff.slice(0,bytesRead).toString());
+    }
 });
