@@ -1,4 +1,5 @@
 var fs = require('fs');
 var path = require('path');
-var content = fs.readFileSync(path.join(__dirname,'msg.txt'));
+process.chdir('../');
+var content = fs.readFileSync(path.join(process.cwd(),'msg.txt'));
 console.log(content);
