@@ -1,0 +1,1 @@
+require('fs').writeFileSync('./msg3.txt',new Buffer(1024*128));

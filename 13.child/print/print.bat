@@ -1,0 +1,1 @@
+node print1.js %1
