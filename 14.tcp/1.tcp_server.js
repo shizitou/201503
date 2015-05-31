@@ -6,7 +6,7 @@ var net = require('net');
 var util = require('util');
 var fs = require('fs');
 var out = fs.createWriteStream('./msg.txt');
-var server = net.createServer(function (socket) {
+var server = net.createServer({allowHalfOpen:false},function (socket) {
     console.log(util.inspect(socket.address()));
     server.getConnections(function(err,count){
         console.log('已经有个'+count+'连接了');
@@ -15,12 +15,15 @@ var server = net.createServer(function (socket) {
     socket.on('data',function(chunk){
         //console.log(chunk);
         console.log('已经接收到了%d个字节',socket.bytesRead);
-        socket.write(chunk);
+        setInterval(function(){
+            socket.write(chunk);
+        },1000);
+
     });
     socket.pipe(out,{end:false});
     socket.on('end',function(){
         out.end('end');
-        server.unref();
+        //server.unref();
         console.log('客户端关闭了连接');
     });
     setTimeout(function(){
