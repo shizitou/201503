@@ -16,22 +16,8 @@ server.on('request', function (req, res) {
     if(pathname == '/'){//表示表单
     fs.createReadStream('./form.html').pipe(res);
     }else if(pathname == '/post'){ //接收表体数据
-       var form = new formidable.IncomingForm();
-        form.parse(req,function(err,fields,files){
-            if(err){
-                res.writeHead(500);
-                res.end(err.toString());
-            }else{
-                res.writeHead(200);
-                console.log(files.avatar);
-                var type = path.extname(files.avatar.type);
-                var fileName = './upload/'+new Date().getTime()+Math.random()+type;
-                console.log(fileName);
-                fs.createReadStream(files.avatar.path).pipe(fs.createWriteStream(fileName));
-                res.end(util.format('fields:%s,files:%s',JSON.stringify(fields),JSON.stringify(files)));
-
-            }
-        });
+      req.pipe(fs.createWriteStream('./formdata.txt'));
+    res.end('hello');
     }else{
         res.end('404');
     }
