@@ -22,35 +22,26 @@ var booklist = {1:{id:1,name:'node'},
     3:{id:3,name:'node.js'}};
 //   请求 / 返回所有的书籍列表
 // 请求 /book?id=? 返回对应的书籍信息
+var controllers = {
+    book:{
+        add:function(req,res,id,name){
+            res.end('add '+(id+' '+name)+' successfully');
+        },
+        del:function(req,res,id){
+            res.end('del '+id+' successfully');
+        }
+    }
+}
 server.on('request',function(req,res){
     var urlObj = url.parse(req.url,true);
     var pathname =urlObj.pathname;
-    var queryObj = urlObj.query;
-    console.log(urlObj);
-    if(pathname == '/'){ // /  返回所有的书籍
-        var result = '';
-        for(var attr in booklist){
-            result+= (booklist[attr].name)+",";
-        }
-        res.end(result);
-    }else if(pathname =='/book'){ // /book?id=2&name=zfpx
-        res.end(booklist[queryObj.id].name);
-    }else if(pathname == '/favicon.ico'){
-       //读取favicon 并响应给客户端
-        fs.readFile('./favicon.ico',function(err,data){
-            res.end(data);
-        })
+    var paths = pathname.split('/');
+    var entity = paths[1];
+    var action = paths[2];
+    var args = paths.slice(3);
+    if(controllers[entity] && controllers[entity][action]){
+        controllers[entity][action].apply(null,[req,res].concat(args));
     }
-});
-
-server.on('connection',function(socket){
-    socket.on('close',function(){
-        console.log('客户端close');
-    });
-    socket.on('end',function(){
-        console.log('客户端end');
-    });
-    console.log('一个新的连接建立了');
 });
 
 server.on('close',function(){
