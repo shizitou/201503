@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<input type="button" value="getCookie" onclick="sendCookie()">
+<div id="result">
+
+</div>
+</body>
+<script>
+    function sendCookie(){
+        var xhr = new XMLHttpRequest();
+        xhr.open('post','/read',true);
+        document.cookie = 'username=zfpx';
+        document.cookie = 'age=18';
+        xhr.onload = function(){
+            if(this.status == 200){
+                document.getElementById('result').innerHTML =
+                        this.response;
+            }
+        }
+        xhr.send();
+    }
+</script>
+</html>

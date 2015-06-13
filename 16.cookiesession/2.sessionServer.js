@@ -21,10 +21,12 @@ http.createServer(function(req,res){
                 var sessionObj = {mny:100,expTime:new Date(now+EXPIRE_TIME)};
                 var sessionId = now +"_"+Math.random();//生成一个唯一不重复的sessionID
                 session[sessionId] =sessionObj;//然后把sessionid和session对像的对应放在了服务器端
+                req.session = sessionObj;
                 res.writeHead(200,{"Content-Type":"text/html;charset=utf-8",'Set-Cookie': SESSION_KEY +'='+sessionId+';max-age:'+EXPIRE_TIME});
                 res.end('欢迎老朋友，但你的卡已经到期了，换张新卡给你，新卡余额是'+sessionObj.mny);
             }else{
                 sessionObj.expTime = new Date(now +EXPIRE_TIME);
+                req.session.mny = req.session.mny-10;
                 sessionObj.mny = sessionObj.mny - 10;
                 res.writeHead(200,{"Content-Type":"text/html;charset=utf-8",'Set-Cookie': SESSION_KEY +'='+sessionId+';max-age:'+EXPIRE_TIME});
                 res.end('欢迎老朋友，卡余额是'+sessionObj.mny);
