@@ -1,0 +1,37 @@
+#介绍
+多用户 多线程 ，SQL
+#组成
+服务器 是由一个服务器守护程序mysqld
+客户端
+#特点
+免费 开源 速度快
+##用法
+show databases;
+123.57.143.189
+mysql -uroot -pzfpx2015
+增加删除修改查询
+创建数据库，创建表，修改表定义
+查询
+select columnlist 列名
+from table_list 哪些表获取数据
+where condition 过滤数据的条件
+group by grouping 分组条件
+having condition 对分组结果进行过滤
+start,limit  对结果进行限定
+查询需求如下
+需求
+条件 年龄为奇数
+按home 分组
+查询 分数最高的 并且大于80分
+只返回一条
+
+
+select home,max(score)
+from person
+where age%2=1
+group by home
+ having max(score)>80
+limit 1
+
+
+
