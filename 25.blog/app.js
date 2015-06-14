@@ -7,6 +7,7 @@ var user = require('./routes/user');
 var article = require('./routes/article');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 var flash = require('connect-flash');
 var app = express();
 //设置模板文件的存放路径
@@ -21,11 +22,17 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(session({
     secret:'zfblog',
     resave:true,
-    saveUninitialized:true
+    saveUninitialized:true,
+    store:new MongoStore({
+        db:'blog',
+        host:'123.57.143.189'
+    })
 }));
 app.use(flash());
 app.use(function(req,res,next){
+    res.locals.user = req.session.user || {};
     res.locals.error = req.flash('error').toString() || "";
+    res.locals.success = req.flash('success').toString() || "";
     next();
 });
 app.use('/',index);
