@@ -1,0 +1,19 @@
+<%
+if(locals.error){
+%>
+<div class="alert alert-danger" role="alert">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    <%=locals.error%>
+</div>
+<%
+}
+if(locals.success){
+%>
+<div class="alert alert-success" role="alert">
+    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+    <%=locals.success%>
+</div>
+<%
+}
+%>
