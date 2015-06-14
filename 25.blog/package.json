@@ -1,0 +1,22 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "this is my first blog",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git"
+  },
+  "keywords": [
+    "blog"
+  ],
+  "author": "zry",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^2.3.1",
+    "express": "^4.12.4"
+  }
+}
