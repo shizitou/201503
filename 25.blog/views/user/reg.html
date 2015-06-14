@@ -20,6 +20,17 @@
                     <h3 class="panel-title">注册用户</h3>
                 </div>
                 <div class="panel-body">
+                    <%
+                       if(locals.error){
+                            %>
+                    <div class="alert alert-danger" role="alert">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only">Error:</span>
+                        <%=locals.error%>
+                    </div>
+                    <%
+                        }
+                    %>
                     <form action="/user/reg" method="post">
                         <div class="form-group">
                             <label for="username">用户名</label>
