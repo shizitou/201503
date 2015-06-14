@@ -1,4 +1,5 @@
 var express = require('express');
+var models = require('./db/models');
 var path = require('path');
 var serveStatic = require('serve-static');
 var fs = require('fs');
@@ -30,10 +31,17 @@ app.use(session({
 }));
 app.use(flash());
 app.use(function(req,res,next){
-    res.locals.user = req.session.user || {};
+    res.locals.user = req.session.user || '';
     res.locals.error = req.flash('error').toString() || "";
     res.locals.success = req.flash('success').toString() || "";
     next();
+});
+app.use(function(req,res,next){
+    if(models._collections){
+        next();
+    }else{
+        res.end('网站初始化尚未完成，请耐心等待.');
+    }
 });
 app.use('/',index);
 app.use('/user',user);

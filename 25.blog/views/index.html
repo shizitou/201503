@@ -3,7 +3,45 @@
 <%- include('include/header.html')%>
 <body>
 <%- include('include/nav.html')%>
-欢迎<%=user.username%>光临
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title"><%=title%></h3>
+        </div>
+        <div class="panel-body">
+            <div class="list-group">
+                <%
+                 articles.forEach(function(article){
+                  %>
+                  <li class="list-group-item">
+                      <%=article.title%>
+                       <div class="pull-right">
+                           <a href="/article/view/<%=article.id%>" class="btn btn-xs btn-primary">查看</a>
+                           <a href="/article/edit/<%=article.id%>" class="btn btn-xs btn-info">编辑 </a>
+                            <button articleId="<%=article.id%>" class="btn btn-xs btn-danger">删除</button>
+                       </div>
+                  </li>
+                <%
+                });
+                %>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
+<script>
+    $(function(){
+        $('button').click(function(){
+            var btn = $(this);
+            var id = btn.attr('articleId');
+            if(!(confirm('确定删除吗')))return;
+            btn.button('loading');
+            $.get('/article/delete/'+id,function(ret){
+                btn.button('reset');
+                location.reload();
+            });
+        });
+    });
+</script>
 </html>
